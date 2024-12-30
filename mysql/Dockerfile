@@ -8,12 +8,12 @@ WORKDIR /app
 ADD . /app
 
 # Set the default user for the MySQL image
-USER mysql
+# USER mysql
 
 # Set environment variables for the new user
-ENV MYSQL_USER=root
-ENV MYSQL_PASSWORD=password
-ENV MYSQL_DATABASE=my_database
+# ENV MYSQL_USER=root
+# ENV MYSQL_PASSWORD=password
+# ENV MYSQL_DATABASE=my_database
 
 
 
