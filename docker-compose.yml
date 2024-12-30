@@ -17,10 +17,10 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ROOT_PASSWORD
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: php-app
-      MYSQL_USER: USER
-      MYSQL_PASSWORD: PASS
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
     ports:
       - "9906:3306"
     volumes:
