@@ -18,7 +18,7 @@ pipeline {
         // Server1 = 'ubuntu@3.93.52.237'
         // Server2 = 'ubuntu@3.93.52.237'
         Server3 = 'ubuntu@98.81.132.12'
-        IMAGE_NAME = "akshayv1601/"
+        IMAGE_NAME = "akshayv1601"
     }
 
     stages {
