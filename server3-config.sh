@@ -37,7 +37,7 @@ sudo apt-get install docker-compose -y
 
 # /opt/apache-maven-3.9.9/bin/mvn  package
 cd  /home/ubuntu/php
-IMAGE_NAME=$1 docker-compose up -d 
+IMAGE_NAME_PHP=$1 IMAGE_NAME_MYSQL=$2  docker-compose up -d 
 # docker build -t $1:$2 .
 # docker rm -f moneyuncle
 # docker run -itd --name moneyuncle -p 8080:8080 $1:$2
