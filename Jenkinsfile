@@ -18,8 +18,8 @@ pipeline {
         // Server1 = 'ubuntu@3.93.52.237'
         // Server2 = 'ubuntu@3.93.52.237'
         Server3 = 'ubuntu@98.81.132.12'
-        IMAGE_NAME_PHP = "akshayv1601:php"
-        IMAGE_NAME_MYSQL = "akshayv1601:mysql"
+        IMAGE_NAME_PHP = "akshayv1601_php"
+        IMAGE_NAME_MYSQL = "akshayv1601_mysql"
     }
 
     stages {
