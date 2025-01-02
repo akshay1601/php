@@ -12,8 +12,8 @@ if [ -d "php" ]; then
     cd /home/ubuntu/php
     git pull origin main
 else
-    git clone https://github.com/akshay1601/addressbook.git
-    cd addressbook
+    git clone https://github.com/akshay1601/php.git
+    cd php
 fi
 
 # Add Docker's official GPG key:
@@ -32,8 +32,12 @@ sudo apt-get update -y
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 sudo chmod 777 /var/run/docker.sock
+sudo apt-get install docker-compose -y
+
+
 # /opt/apache-maven-3.9.9/bin/mvn  package
-cd  /home/ubuntu/addressbook
-docker build -t $1:$2 .
-docker rm -f moneyuncle
-docker run -itd --name moneyuncle -p 8080:8080 $1:$2
+cd  /home/ubuntu/php
+docker-compose up -d 
+# docker build -t $1:$2 .
+# docker rm -f moneyuncle
+# docker run -itd --name moneyuncle -p 8080:8080 $1:$2
