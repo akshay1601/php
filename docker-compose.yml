@@ -1,7 +1,7 @@
 version: '3'
 services:
   php-environment:
-    image: $IMAGE_NAME:php
+    image: $IMAGE_NAME
     container_name: php-apache
     build:
       context: ./apache-php
@@ -15,7 +15,7 @@ services:
     build:
       context: ./mysql
       dockerfile: Dockerfile    
-    image: $IMAGE_NAME:mysql
+    image: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
