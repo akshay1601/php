@@ -81,7 +81,7 @@ pipeline {
                         sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
                         sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
-                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
                         
                         }
                     }
