@@ -15,9 +15,9 @@ pipeline {
     }
 
     environment {
-        // Server1 = 'ubuntu@3.93.52.237'
-        // Server2 = 'ubuntu@3.93.52.237'
-        Server3 = 'ubuntu@98.81.132.12'
+        Server1 = 'ubuntu@54.235.20.27'
+        Server2 = 'ubuntu@34.229.83.25'
+        Server3 = 'ubuntu@54.160.234.16'
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
