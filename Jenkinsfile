@@ -23,18 +23,18 @@ pipeline {
     }
 
     stages {
-        // stage('Compile') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no server1-config.sh ${Server1}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/server1-config.sh'"
-        //              }
-        //         }
-        //     }
+        stage('Compile') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server1}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/server3-config.sh'"
+                     }
+                }
+            }
 
-        // }
+        }
         // stage('UnitTest') {
         //     agent any
         //     when {
@@ -52,18 +52,18 @@ pipeline {
         //     }
 
         // }
-        // stage('Package') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh'"
-        //              }
-        //         }
-        //     }
+        stage('Package') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server2}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server3-config.sh'"
+                     }
+                }
+            }
 
-        // }
+        }
         stage('Deploy') {
             agent any
             input {
@@ -80,8 +80,8 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
-                        sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
-                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
+                        // sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
+                        // sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
                         
                         }
                     }
