@@ -7,14 +7,14 @@
 #     sudo tar xf apache-maven-3.9.9-bin.tar.gz -C /opt
 # fi 
 
-# if [ -d "php" ]; then 
-#     echo "Repo is present"
-#     cd /home/ubuntu/php
-#     git pull origin main
-# else
-#     git clone https://github.com/akshay1601/php.git 
-#     cd php
-# fi
+if [ -d "php" ]; then 
+    echo "Repo is present"
+    cd /home/ubuntu/php
+    git pull origin main
+else
+    git clone https://github.com/akshay1601/php.git 
+    cd php
+fi
 
 # # Add Docker's official GPG key:
 # sudo apt-get update -y 
