@@ -79,6 +79,12 @@ sudo apt-mark hold kubeadm kubelet kubectl
 sudo systemctl status kubelet.service
 sudo systemctl status containerd.service
 
+#kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
+
+#Auto complete command for that need to execute the below command
+sudo apt-get install bash-completion
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+source ~/.bashrc
 
 # /opt/apache-maven-3.9.9/bin/mvn  package
 # cd  /home/ubuntu/php

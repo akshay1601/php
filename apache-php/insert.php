@@ -1,8 +1,14 @@
 <?php
-$host = 'db';
-$dbn = 'phpapp';
-$user = 'root';
-$pass = 'password';
+// $host = 'db';
+// $dbn = 'phpapp';
+// $user = 'root';
+// $pass = 'password';
+
+$host = $_ENV['DB_HOST'];
+$dbn = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASSWORD'];
+
 $conn = new mysqli($host, $user, $pass,$dbn);
 if(isset($_POST['submit']))
 {
