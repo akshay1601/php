@@ -16,8 +16,8 @@ pipeline {
 
     environment {
         Server1 = 'ubuntu@34.201.150.154'
-        Server2 = 'ubuntu@34.207.243.203'
-        Server3 = 'ubuntu@54.158.29.175'
+        Server3 = 'ubuntu@34.207.243.203'
+        // Server3 = 'ubuntu@54.158.29.175'
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
@@ -80,8 +80,8 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
-                        // sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
-                        // sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
+                        sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
                         
                         }
                     }
