@@ -1,60 +1,18 @@
-<?php
-// $host = $_ENV['DB_HOST'];
-// $user = $_ENV['DB_USER'];
-// $pass = $_ENV['DB_PASSWORD'];
-
-
-$host = 'db';
-$user = 'root';
-$pass = 'password';
-
-$conn = new mysqli($host, $user, $pass);
-if ($conn->connect_error) {
-   die("Connection failed: " . $conn->connect_error);
-} else {
-   echo "Connected to MySQL server successfully!";
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Create Record</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-<style type="text/css">
-.wrapper{
-  width: 500px;
-  margin: 0 auto;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
 </head>
 <body>
-<div class="wrapper">
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-12">
-<div class="page-header">
-<h2>Contact Form</h2>
-</div>
-<p>Please fill this form and submit to add employee record to the database.</p>
-<form action="insert.php" method="post">
-<div class="form-group">
-<label>Name</label>
-<input type="text" name="name" class="form-control">
-</div>
-<div class="form-group">
-<label>Email</label>
-<input type="email" name="email" class="form-control">
-</div>
-<div class="form-group">
-<label>Mobile</label>
-<input type="mobile" name="mobile" class="form-control">
-</div>
-<input type="submit" class="btn btn-primary" name="submit" value="Submit">
-</form>
-</div>
-</div>
-</div>
-</div>
+    <h1>Login</h1>
+    <form action="login.php" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
