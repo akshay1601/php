@@ -19,9 +19,13 @@
 
 <?php
 
-$host = 'db';
-$user = 'root';
-$pass = 'password';
+// $host = 'db';
+// $user = 'root';
+// $pass = 'password';
+
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
 
 $conn = new mysqli($host, $user, $pass);
 if ($conn->connect_error) {
