@@ -22,7 +22,8 @@ FROM php:8.2-apache
 
 WORKDIR /var/www/html
 
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+# RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN apt-get update && apt-get upgrade -y
 # Copy only the necessary files from the vendor stage
 COPY --from=vendor /app/vendor ./vendor
