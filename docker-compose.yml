@@ -17,9 +17,9 @@ services:
       dockerfile: Dockerfile    
     image: $IMAGE_NAME_MYSQL:$BUILD_NUMBER
     restart: always
-    # environment:
-    #   MYSQL_ROOT_PASSWORD: password
-    #   MYSQL_DATABASE: phpapp
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: login_system
     ports:
       - "3306:3306"
     volumes:
