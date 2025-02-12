@@ -1,7 +1,13 @@
 <?php
-$host = $_ENV['DB_HOST'];
-$user = $_ENV['DB_USER'];
-$pass = $_ENV['DB_PASSWORD'];
+// $host = $_ENV['DB_HOST'];
+// $user = $_ENV['DB_USER'];
+// $pass = $_ENV['DB_PASSWORD'];
+
+
+$host = db;
+$user = root;
+$pass = password;
+
 $conn = new mysqli($host, $user, $pass);
 if ($conn->connect_error) {
    die("Connection failed: " . $conn->connect_error);
