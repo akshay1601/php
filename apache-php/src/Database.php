@@ -14,7 +14,7 @@ class Database
     public function __construct()
     {
         // Load .env file
-        $dotenv = Dotenv::createImmutable(_DIR_ . '/..');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
         $dotenv->load();
 
         // Get database credentials from .env
