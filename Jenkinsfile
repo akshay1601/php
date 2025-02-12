@@ -15,55 +15,55 @@ pipeline {
     }
 
     environment {
-        Server1 = 'ubuntu@54.235.20.27'
-        Server2 = 'ubuntu@34.229.83.25'
-        Server3 = 'ubuntu@54.160.234.16'
+        Server1 = 'ubuntu@34.201.150.154'
+        Server2 = 'ubuntu@34.207.243.203'
+        Server3 = 'ubuntu@54.158.29.175'
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
 
     stages {
-        stage('Compile') {
-            agent any
-            steps {
-                script{
-                    sshagent (credentials: ['Slave']) {
-                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server1}:/home/ubuntu"
-                        sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/server3-config.sh'"
-                     }
-                }
-            }
-
-        }
-        // stage('UnitTest') {
+        // stage('Compile') {
         //     agent any
-        //     when {
-        //         expression {
-        //             params.executeTests == true
-        //         }
-        //     }
         //     steps {
         //         script{
         //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no server2-config.sh ${Server2}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server2-config.sh'"
+        //                 sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server1}:/home/ubuntu"
+        //                 sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/server3-config.sh'"
         //              }
         //         }
         //     }
 
         // }
-        stage('Package') {
-            agent any
-            steps {
-                script{
-                    sshagent (credentials: ['Slave']) {
-                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server2}:/home/ubuntu"
-                        sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server3-config.sh'"
-                     }
-                }
-            }
+        // // stage('UnitTest') {
+        // //     agent any
+        // //     when {
+        // //         expression {
+        // //             params.executeTests == true
+        // //         }
+        // //     }
+        // //     steps {
+        // //         script{
+        // //             sshagent (credentials: ['Slave']) {
+        // //                 sh "scp -o StrictHostKeyChecking=no server2-config.sh ${Server2}:/home/ubuntu"
+        // //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server2-config.sh'"
+        // //              }
+        // //         }
+        // //     }
 
-        }
+        // // }
+        // stage('Package') {
+        //     agent any
+        //     steps {
+        //         script{
+        //             sshagent (credentials: ['Slave']) {
+        //                 sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server2}:/home/ubuntu"
+        //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server3-config.sh'"
+        //              }
+        //         }
+        //     }
+
+        // }
         stage('Deploy') {
             agent any
             input {
