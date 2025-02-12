@@ -18,16 +18,16 @@ class Database
         $dotenv->load();
 
         // Get database credentials from .env
-        // $host = $_ENV['DB_HOST'];
-        // $dbname = $_ENV['DB_NAME'];
-        // $user = $_ENV['DB_USER'];
-        // $password = $_ENV['DB_PASSWORD'];
+        $host = $_ENV['DB_HOST'];
+        $dbname = $_ENV['DB_NAME'];
+        $user = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASSWORD'];
 
         //Get database credentials from .env
-        $host = 'db';
-        $dbname = 'login_system';
-        $user = 'root';
-        $password = 'password';
+        // $host = 'db';
+        // $dbname = 'login_system';
+        // $user = 'root';
+        // $password = 'password';
 
 
         // Create PDO connection
