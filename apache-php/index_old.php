@@ -1,7 +1,7 @@
 <?php
-$host = $_SERVER['DB_HOST'];
-$user = $_SERVER['DB_USER'];
-$pass = $_SERVER['DB_PASSWORD'];
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
 
 
 // $host = 'db';
