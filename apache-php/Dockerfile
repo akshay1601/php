@@ -15,7 +15,7 @@ WORKDIR /app
 COPY composer.json composer.lock ./
 
 # Install dependencies (no dev dependencies)
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+RUN composer update
 
 # Stage 2: Build the final PHP image
 FROM php:8.2-apache
