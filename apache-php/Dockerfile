@@ -6,6 +6,9 @@
 # COPY .env /var/www/html/
 # CMD ["apache2-foreground"]
 
+# Project that can help us to deploy CICD
+#https://gist.github.com/jcavat/2ed51c6371b9b488d6a940ba1049189b
+
 # Stage 1: Build the vendor folder
 FROM composer:2 as vendor
 
