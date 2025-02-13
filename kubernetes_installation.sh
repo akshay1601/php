@@ -42,6 +42,7 @@ sudo apt-mark hold kubeadm kubelet kubectl
 sudo systemctl status kubelet.service
 sudo systemctl status containerd.service
 
+
 #kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
 
 #Auto complete command for that need to execute the below command
