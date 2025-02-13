@@ -15,10 +15,10 @@ pipeline {
     }
 
     environment {
-        Server1 = 'ubuntu@54.175.234.89'   // Kubernetes installtion Server1 statge
-        Server2 = 'ubuntu@54.175.234.89'  // Kubernetes installtion Server2 satage 
-        Server3 = 'ubuntu@54.234.229.132' // Docker // Deploy stage 
-        Server4 = 'ubuntu@35.175.178.135'  //Kubernetes installtion Server3Master 
+        Server1 = 'ubuntu@54.145.208.225'   // Kubernetes installtion Server1 statge
+        Server2 = 'ubuntu@184.72.161.252'  // Kubernetes installtion Server2 satage 
+        Server3 = 'ubuntu@34.228.156.127' // Docker // Deploy stage 
+        Server4 = 'ubuntu@52.87.174.82'  //Kubernetes installtion Server3Master 
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
@@ -72,7 +72,7 @@ pipeline {
                 script{
                     sshagent (credentials: ['Slave']) {
                         sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
-                        sh "scp -o StrictHostKeyChecking=no kuberetes ${Server4}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no kubernetes ${Server4}:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
                         
                      }
@@ -98,6 +98,7 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
                         sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
                         sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_MYSQL}:${BUILD_NUMBER}"
                         
                         }
                     }
