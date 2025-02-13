@@ -15,10 +15,10 @@ pipeline {
     }
 
     environment {
-        Server1 = 'ubuntu@54.145.208.225'   // Kubernetes installtion Server1 statge
-        Server2 = 'ubuntu@184.72.161.252'  // Kubernetes installtion Server2 satage 
+        Server1 = 'ubuntu@44.223.54.176'   // Kubernetes installtion Server1 statge
+        Server2 = 'ubuntu@54.173.13.166'  // Kubernetes installtion Server2 satage 
         Server3 = 'ubuntu@34.228.156.127' // Docker // Deploy stage 
-        Server4 = 'ubuntu@52.87.174.82'  //Kubernetes installtion Server3Master 
+        Server4 = 'ubuntu@18.209.47.64'  //Kubernetes installtion Server3Master 
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
@@ -72,7 +72,6 @@ pipeline {
                 script{
                     sshagent (credentials: ['Slave']) {
                         sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
-                        sh "scp -o StrictHostKeyChecking=no kubernetes ${Server4}:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
                         
                      }
