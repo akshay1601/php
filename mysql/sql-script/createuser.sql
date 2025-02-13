@@ -1,4 +1,4 @@
-CREATE DATABASE login_system;
+-- CREATE DATABASE login_system;
 USE login_system;
 
 CREATE TABLE users (
@@ -12,6 +12,6 @@ INSERT INTO users (username, password) VALUES ('akki', '$6$GHqYc96XStM30Rry$MppM
 
 -- docker stop db php-apache
 -- docker rm -f php-apache  db
--- docker rmi -f akshayv1601/php:4 akshayv1601/mysql:4
+-- docker rmi -f akshayv1601/php:6 akshayv1601/mysql:6
 -- sudo rm -rf php/ server3-config.sh 
 -- sudo rm -rf /var/lib/mysql/
