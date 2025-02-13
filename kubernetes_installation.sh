@@ -39,8 +39,8 @@ VERSION=1.30.1-1.1
 sudo apt install kubeadm=$VERSION kubelet=$VERSION kubectl=$VERSION -y 
 sudo apt-mark hold kubeadm kubelet kubectl
 
-sudo systemctl status kubelet.service
-sudo systemctl status containerd.service
+# sudo systemctl status kubelet.service
+# sudo systemctl status containerd.service
 
 
 #kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
