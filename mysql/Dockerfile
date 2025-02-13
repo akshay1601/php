@@ -16,7 +16,6 @@ ADD . /app
 # ENV MYSQL_DATABASE=my_database
 
 
-
 # Expose port 3306 to allow connections to the database
 EXPOSE 3306
 
