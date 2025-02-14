@@ -34,6 +34,9 @@ COPY --from=vendor /app/vendor ./vendor
 # Copy the rest of the application code
 COPY . .
 
+RUN mkdir /data
+
+COPY . /data
 # Expose port 80
 EXPOSE 80
 

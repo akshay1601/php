@@ -29,7 +29,7 @@ spec:
             - name: DB_NAME
               value: login_system
             - name: DB_USER
-              value: root
+              value: user
             - name: DB_PASSWORD
               value: password
       volumes:
