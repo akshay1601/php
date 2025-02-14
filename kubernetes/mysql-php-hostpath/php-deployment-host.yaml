@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-host
+spec:
+  selector:
+    matchLabels:
+      app: php-host
+  template:
+    metadata:
+      labels:
+        app: php-host
+    spec:
+      containers:
+        - name: php-host
+          image: php:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_HOST
+              value: mysql-service
+            - name: DB_NAME
+              value: login_system
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: password
+      volumes:
+        - name: php-host
+          persistentVolumeClaim:
+            claimName: php-pvc-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-service
+spec:
+  type: NodePort
+  selector:
+    app: php-host
+  ports:
+    - port: 80
+      # By default and for convenience, the `targetPort` is set to
+
+      # the same value as the `port` field.
+      targetPort: 80
+      # Optional field
+
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007

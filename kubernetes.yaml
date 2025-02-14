@@ -18,26 +18,26 @@ spec:
         app: simple-pod1
     spec:
       containers:
-      - image: nginx
-        name: nginx
-        ports:
-        - containerPort: 8080
-        startupProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          failureThreshold: 1
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        resources: {}
+        - image: nginx
+          name: nginx
+          ports:
+            - containerPort: 8080
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources: {}
 status: {}
