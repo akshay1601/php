@@ -24,18 +24,18 @@ pipeline {
     }
 
     stages {
-        // stage('Server1') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server1}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/kubernetes_installation.sh'"
-        //              }
-        //         }
-        //     }
+        stage('Server1') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server1}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/kubernetes_installation.sh'"
+                     }
+                }
+            }
 
-        // }
+        }
         // stage('UnitTest') {
         //     agent any
         //     when {
@@ -58,52 +58,52 @@ pipeline {
             steps {
                 script{
                     sshagent (credentials: ['Slave']) {
-                        //sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server2}:/home/ubuntu"
-                        sh "scp -o StrictHostKeyChecking=no -r kubernetes/*  ${Server2}:/home/ubuntu"
-                        //sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/kubernetes_installation.sh'"
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server2}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/kubernetes_installation.sh'"
                      }
                 }
             }
 
         }
 
-        // stage('Server4Master') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
+        stage('Server4Master') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no -r kubernetes/*  ${Server4}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
                         
-        //              }
-        //         }
-        //     }
+                     }
+                }
+            }
 
-        // }
-        // stage('Deploy') {
-        //     agent any
-        //     input {
-        //         message "Select the Version?"
-        //         ok "Version Selected"
-        //         parameters {
-        //             choice(name: 'PLATFORM', choices: ['EKS', 'ONPREM_EKS', 'ON_SERVER'], description: 'Pick something')
-        //         }
-        //     }
-        //     steps{
-        //         echo "Deploy the Code ${params.Env}"
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
-        //                 sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
-        //                 sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
-        //                 sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
-        //                 sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_MYSQL}:${BUILD_NUMBER}"
+        }
+        stage('Deploy') {
+            agent any
+            input {
+                message "Select the Version?"
+                ok "Version Selected"
+                parameters {
+                    choice(name: 'PLATFORM', choices: ['EKS', 'ONPREM_EKS', 'ON_SERVER'], description: 'Pick something')
+                }
+            }
+            steps{
+                echo "Deploy the Code ${params.Env}"
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
+                        sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_MYSQL}:${BUILD_NUMBER}"
                         
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }        
+                        }
+                    }
+                }
+            }
+        }        
     }
 }
