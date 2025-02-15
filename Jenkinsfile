@@ -15,71 +15,71 @@ pipeline {
     }
 
     environment {
-        Server1 = 'ubuntu@54.91.2.193'   // Kubernetes installtion Server1 statge
-        Server2 = 'ubuntu@54.197.148.180'  // Kubernetes installtion Server2 satage 
-        Server3 = 'ubuntu@3.87.155.198' // Docker // Deploy stage 
-        Server4 = 'ubuntu@34.224.165.196'  //Kubernetes installtion Server3Master 
+        Server1 = 'ubuntu@34.227.8.72'   // Kubernetes installtion Server1 statge
+        Server2 = 'ubuntu@54.175.222.62'  // Kubernetes installtion Server2 satage 
+        Server3 = 'ubuntu@54.160.150.48' // Docker // Deploy stage 
+        Server4 = 'ubuntu@54.144.110.7'  //Kubernetes installtion Server3Master 
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
 
     stages {
-        // stage('Server1') {
+        stage('Server1') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server1}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/kubernetes_installation.sh'"
+                     }
+                }
+            }
+
+        }
+        // stage('UnitTest') {
         //     agent any
+        //     when {
+        //         expression {
+        //             params.executeTests == true
+        //         }
+        //     }
         //     steps {
         //         script{
         //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server1}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server1} 'bash ~/kubernetes_installation.sh'"
+        //                 sh "scp -o StrictHostKeyChecking=no server2-config.sh ${Server2}:/home/ubuntu"
+        //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server2-config.sh'"
         //              }
         //         }
         //     }
 
         // }
-        // // stage('UnitTest') {
-        // //     agent any
-        // //     when {
-        // //         expression {
-        // //             params.executeTests == true
-        // //         }
-        // //     }
-        // //     steps {
-        // //         script{
-        // //             sshagent (credentials: ['Slave']) {
-        // //                 sh "scp -o StrictHostKeyChecking=no server2-config.sh ${Server2}:/home/ubuntu"
-        // //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/server2-config.sh'"
-        // //              }
-        // //         }
-        // //     }
+        stage('Server2') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server2}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/kubernetes_installation.sh'"
+                     }
+                }
+            }
 
-        // // }
-        // stage('Server2') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server2}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server2} 'bash ~/kubernetes_installation.sh'"
-        //              }
-        //         }
-        //     }
+        }
 
-        // }
-
-        // stage('Server4Master') {
-        //     agent any
-        //     steps {
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
-        //                 sh "scp -o StrictHostKeyChecking=no -r kubernetes/*  ${Server4}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
+        stage('Server4Master') {
+            agent any
+            steps {
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        sh "scp -o StrictHostKeyChecking=no kubernetes_installation.sh ${Server4}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no -r kubernetes/*  ${Server4}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server4} 'bash ~/kubernetes_installation.sh'"
                         
-        //              }
-        //         }
-        //     }
+                     }
+                }
+            }
 
-        // }
+        }
         stage('Deploy') {
             agent any
             input {
