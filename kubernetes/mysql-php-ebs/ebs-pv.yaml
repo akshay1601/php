@@ -20,9 +20,55 @@ spec:
               operator: In
               values:
                 - ip-172-31-31-19
-
-# Install CBI driver to work EBS voulme
+                # Install CBI driver to work EBS voulme
 # kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 # - Check the logs of the EBS CSI Driver:
 #   kubectl logs -n kube-system -l app=ebs-csi-controller
 #   kubectl logs -n kube-system -l app=ebs-csi-node
+# kubectl get node <NODE_NAME> -o jsonpath='{.spec.providerID}'
+# aws ec2 describe-instances --instance-ids <INSTANCE_ID> --query "Reservations[].Instances[].MetadataOptions"
+
+#   1  vi test.sh 
+#   2  chmod 777 test.sh 
+#   3  sudo ./test.sh 
+#   4  sudo kubeadm init --allow-privileged=true
+#   5  sudo kubeadm init 
+#   6  kubectl get nodes
+#   7  kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
+#   8  sudo apt-get install bash-completion
+#   9  echo "source <(kubectl completion bash)" >> ~/.bashrc
+#  10  source ~/.bashrc
+#  11  kubectl get nodes
+#  12  vi ebs.pv.yaml
+#  13  kubectl apply -f ebs.pv.yaml 
+#  14  kubectl get pv
+#  15  vi ebs.pvc.yaml
+#  16  vi ebs.pv.yaml
+#  17  vi ebs.pvc.yaml
+#  18  kubectl apply -f ebs.pvc.yaml
+#  19  kubectl get pvc
+#  20  vi ebs.mysql.yaml
+#  21  kubectl apply -f ebs.mysql.yaml 
+#  22  kubectl get pods 
+#  23  kubectl get pv
+#  24  kubectl get pvc
+#  25  kubectl get pods 
+#  26  kubectl describe pods mysql-host-f8c8765c8-
+#  27  kubectl describe pods mysql-host-f8c8765c8-g99qd 
+#  28  kubectl describe pods mysql-host-f8c8765c8-jdbhx 
+#  29  kubectl logs mysql-host-f8c8765c8-g99qd 
+#  30  kubectl logs mysql-host-f8c8765c8-jdbhx 
+#  31  kubectl describe pv ebs-pv-mysql 
+#  32  kubectl describe pvc ebs-pvc-mysql 
+#  33  kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+#  34  kubectl get pods --all-namespaces 
+#  35  kubectl logs -n kube-system -l app=ebs-csi-controller
+#  36  kubectl get pods --all-namespaces 
+#  37  kubectl describe pv ebs-pv-mysql 
+#  38  kubectl describe pvc ebs-pvc-mysql 
+#  39  kubectl get pods 
+#  40  kubectl logs mysql-host-f8c8765c8-g99qd 
+#  41  kubectl describe pods mysql-host-f8c8765c8-g99qd 
+#  42  kubectl logs mysql-host-f8c8765c8-g99qd 
+#  43  kubectl get pods 
+#  44  kubectl describe pods mysql-host-f8c8765c8-g99qd 
