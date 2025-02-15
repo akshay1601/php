@@ -20,3 +20,9 @@ spec:
               operator: In
               values:
                 - ip-172-31-31-19
+
+# Install CBI driver to work EBS voulme
+# kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+# - Check the logs of the EBS CSI Driver:
+#   kubectl logs -n kube-system -l app=ebs-csi-controller
+#   kubectl logs -n kube-system -l app=ebs-csi-node
