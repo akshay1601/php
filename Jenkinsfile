@@ -15,10 +15,10 @@ pipeline {
     }
 
     environment {
-        Server1 = 'ubuntu@34.227.71.194'   // Kubernetes installtion Server1 statge
-        Server2 = 'ubuntu@54.83.116.159'  // Kubernetes installtion Server2 satage 
-        Server3 = 'ubuntu@54.242.181.6' // Docker // Deploy stage 
-        Server4 = 'ubuntu@3.80.53.228'  //Kubernetes installtion Server3Master 
+        Server1 = 'ubuntu@3.89.186.28'   // Kubernetes installtion Server1 statge
+        Server2 = 'ubuntu@54.234.28.207'  // Kubernetes installtion Server2 satage 
+        Server3 = 'ubuntu@3.90.199.243' // Docker // Deploy stage 
+        Server4 = 'ubuntu@52.23.231.56'  //Kubernetes installtion Server3Master 
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
     }
@@ -80,30 +80,30 @@ pipeline {
             }
 
         }
-        // stage('Deploy') {
-        //     agent any
-        //     input {
-        //         message "Select the Version?"
-        //         ok "Version Selected"
-        //         parameters {
-        //             choice(name: 'PLATFORM', choices: ['EKS', 'ONPREM_EKS', 'ON_SERVER'], description: 'Pick something')
-        //         }
-        //     }
-        //     steps{
-        //         echo "Deploy the Code ${params.Env}"
-        //         script{
-        //             sshagent (credentials: ['Slave']) {
-        //                 withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
-        //                 sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
-        //                 sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
-        //                 sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
-        //                 sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
-        //                 sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_MYSQL}:${BUILD_NUMBER}"
+        stage('Deploy') {
+            agent any
+            input {
+                message "Select the Version?"
+                ok "Version Selected"
+                parameters {
+                    choice(name: 'PLATFORM', choices: ['EKS', 'ONPREM_EKS', 'ON_SERVER'], description: 'Pick something')
+                }
+            }
+            steps{
+                echo "Deploy the Code ${params.Env}"
+                script{
+                    sshagent (credentials: ['Slave']) {
+                        withCredentials([usernamePassword(credentialsId: 'Docker-hub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        sh "scp -o StrictHostKeyChecking=no server3-config.sh ${Server3}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${Server3} 'bash ~/server3-config.sh ${IMAGE_NAME_PHP} ${IMAGE_NAME_MYSQL} ${BUILD_NUMBER}'"
+                        sh "ssh ${Server3} sudo docker login docker.io -u $username -p $password"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_PHP}:${BUILD_NUMBER}"
+                        sh "ssh ${Server3} sudo docker push ${IMAGE_NAME_MYSQL}:${BUILD_NUMBER}"
                         
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }        
+                        }
+                    }
+                }
+            }
+        }        
     }
 }
