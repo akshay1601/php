@@ -20,18 +20,18 @@ spec:
               operator: In
               values:
                 - ip-172-31-31-19
-                # Install CBI driver to work EBS voulme
+
+# Install CBI driver to work EBS voulme
 # kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 # - Check the logs of the EBS CSI Driver:
 #   kubectl logs -n kube-system -l app=ebs-csi-controller
 #   kubectl logs -n kube-system -l app=ebs-csi-node
 # kubectl get node <NODE_NAME> -o jsonpath='{.spec.providerID}'
 # aws ec2 describe-instances --instance-ids <INSTANCE_ID> --query "Reservations[].Instances[].MetadataOptions"
-
+# https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/examples/kubernetes
 #   1  vi test.sh 
 #   2  chmod 777 test.sh 
 #   3  sudo ./test.sh 
-#   4  sudo kubeadm init --allow-privileged=true
 #   5  sudo kubeadm init 
 #   6  kubectl get nodes
 #   7  kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
