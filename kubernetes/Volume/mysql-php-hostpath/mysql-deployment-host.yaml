@@ -1,3 +1,6 @@
+#To use mutiple volume and you need to just add there name and same for mount volume just  have to add the name  
+#For mysql it need env vaibale compusaly so you need to specify the env variable t start the container
+#even if you are using mount volume instead of env volume. 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
