@@ -17,7 +17,7 @@ pipeline {
     environment {
         Server1 = 'ubuntu@54.237.0.151'   // Kubernetes installtion Server1 statge
         Server2 = 'ubuntu@52.87.218.96'  // Kubernetes installtion Server2 satage 
-        Server3 = 'ubuntu@35.175.221.37' // Docker // Deploy stage 
+        Server3 = 'ubuntu@3.90.217.229' // Docker // Deploy stage 
         Server4 = 'ubuntu@34.230.76.138'  //Kubernetes installtion Server3Master 
         IMAGE_NAME_PHP = "akshayv1601/php"
         IMAGE_NAME_MYSQL = "akshayv1601/mysql"
