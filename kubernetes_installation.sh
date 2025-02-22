@@ -43,6 +43,9 @@ sudo apt-mark hold kubeadm kubelet kubectl
 # sudo systemctl status kubelet.service
 # sudo systemctl status containerd.service
 
+#If the tocken is lost we can recovered form below command
+#kubeadm token create --print-join-command
+
 
 #kubectl apply -f https://docs.projectcalico.org/v3.25/manifests/calico.yaml
 
