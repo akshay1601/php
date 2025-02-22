@@ -1,6 +1,10 @@
 #To use mutiple volume and you need to just add there name and same for mount volume just  have to add the name  
 #For mysql it need env vaibale compusaly so you need to specify the env variable t start the container
 #even if you are using mount volume instead of env volume. 
+#To manage the EBS volume, we need IAM role for all cluster as well as nodes with EBS permission.
+#Install CBI driver to work EBS voulme with below command.
+# kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+#EBS voulme need to be created to be create and get the voulme ID with you to update in the PV.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
