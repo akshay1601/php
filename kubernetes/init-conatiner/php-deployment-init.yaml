@@ -1,4 +1,4 @@
-#On init container fro mysql, we can use init container in php deployment fro mysql restore because in mysql its not working.
+#On init container for mysql restore the database, we can use init container in php deployment fro mysql restore because in mysql its not working.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
