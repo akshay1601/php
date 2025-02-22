@@ -4,7 +4,7 @@
 #For mysql it need env vaibale compusaly so you need to specify the env variable t start the container
 #even if you are using mount volume instead of env volume. 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql-deployment
 spec:
@@ -36,26 +36,6 @@ spec:
                 path: MYSQL_USER
               - key: MYSQL_PASSWORD
                 path: MYSQL_PASSWORD
-      initContainers:
-        - name: restore-mysql
-          image: mysql:latest
-          command:
-            - /bin/sh
-            - -c
-            - |
-              # restore mysql
-              mysql -h mysql-service -uroot -p$(MYSQL_ROOT_PASSWORD) < /data/test.sql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-cred
-                  key: MYSQL_ROOT_PASSWORD
-          volumeMounts:
-            - name: mysqlcontent
-              mountPath: /var/lib/mysql
-            - name: mysql-init
-              mountPath: /data
       containers:
         - name: mysql
           image: mysql:8.0

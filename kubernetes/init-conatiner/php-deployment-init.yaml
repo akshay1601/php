@@ -1,3 +1,4 @@
+#On init container fro mysql, we can use init container in php deployment fro mysql restore because in mysql its not working.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,9 +13,32 @@ spec:
       labels:
         app: php
     spec:
+      volumes:
+        - name: mysql-init
+          persistentVolumeClaim:
+            claimName: mysql-pvc-init-data
+      initContainers:
+        - name: restore-mysql
+          image: mysql:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              # restore mysql
+              sleep 5
+              mysql -h mysql-service -uroot -p$(MYSQL_ROOT_PASSWORD) < /data/test.sql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-cred
+                  key: MYSQL_ROOT_PASSWORD
+          volumeMounts:
+            - name: mysql-init
+              mountPath: /data
       containers:
         - name: php
-          image: akshayv1601/php:2
+          image: akshayv1601/php:1
           ports:
             - containerPort: 80
           startupProbe:
