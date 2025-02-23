@@ -1,0 +1,82 @@
+#On init container for mysql restore the database, we can use init container in php deployment fro mysql restore because in mysql its not working.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+        - name: php
+          image: akshayv1601/php:1
+          ports:
+            - containerPort: 80
+          startupProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          env:
+            - name: DB_HOST
+              value: mysql-service
+            - name: DB_NAME
+              value: login_system
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: password
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - mysql
+              topologyKey: "kubernetes.io/hostname"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-service
+spec:
+  type: NodePort
+  selector:
+    app: php
+  ports:
+    - port: 80
+      # By default and for convenience, the `targetPort` is set to
+
+      # the same value as the `port` field.
+      targetPort: 80
+      # Optional field
+
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007

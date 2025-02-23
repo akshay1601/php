@@ -1,0 +1,64 @@
+#kubectl create secret generic mysql-cred --from-literal=MYSQL_ROOT_PASSWORD='password' --from-literal=MYSQL_DATABASE='login_system' --from-literal=MYSQL_USER='user'  --from-literal=MYSQL_PASSWORD='password1'
+#Need to create secret before creting deployment 
+#To use mutiple volume and you need to just add there name and same for mount volume just  have to add the name  
+#For mysql it need env vaibale compusaly so you need to specify the env variable t start the container
+#even if you are using mount volume instead of env volume. 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          startupProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 1
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-cred
+                  key: MYSQL_ROOT_PASSWORD
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - mysql
+              topologyKey: "kubernetes.io/hostname"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306
