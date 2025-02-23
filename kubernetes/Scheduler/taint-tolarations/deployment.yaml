@@ -1,0 +1,36 @@
+#kubectl taint nodes ip-172-31-29-125 key=MyTaint:NoSchedule
+#Prevent pods to create on the nodes when taint is appied on the nodes with above command
+#kubectl taint nodes ip-172-31-29-125 key:NoSchedule-
+#Remove taint with above command 
+#With tolerations we can create pods on nodes which is tainted, just you have to sepcify the 
+#same label which is applied in the below template.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simple-pod1
+  name: simple-pod1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: simple-pod1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: simple-pod1
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+          ports:
+            - containerPort: 8080
+      resources:
+      tolerations:
+        - key: "key"
+          operator: "Equal"
+          value: "MyTaint"
+          effect: "NoSchedule"
