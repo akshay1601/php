@@ -1,6 +1,8 @@
 #To use mutiple volume and you need to just add there name and same for mount volume just  have to add the name  
 #For mysql it need env vaibale compusaly so you need to specify the env variable t start the container
 #even if you are using mount volume instead of env volume. 
+#https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner/blob/master/deployment/kubernetes/example/default_example_provisioner_generated.yaml
+# Above git hub help to created volume adn other service on kubernetes
 apiVersion: apps/v1
 kind: Deployment
 metadata:

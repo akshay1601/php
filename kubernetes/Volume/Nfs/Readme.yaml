@@ -1,0 +1,2 @@
+#https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs
+Above github will help to create NFS menifest on the cluster

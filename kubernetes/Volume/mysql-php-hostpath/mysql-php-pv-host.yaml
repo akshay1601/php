@@ -27,3 +27,4 @@ spec:
   storageClassName: standard
   hostPath:
     path: /var/www/html
+    type: DirectoryOrCreate
